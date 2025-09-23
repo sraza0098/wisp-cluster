@@ -1,1 +1,10 @@
-charts/*
+# Helm chart exclusions (anywhere in the repo)
+**/charts/
+**/Chart.lock
+**/tmpcharts/
+**/templates/*.tar.gz
+**/templates/*.tgz
+**/helm-output/
+**/helm-pkg/
+**/helm-dist/
+**/helm-test-output/
