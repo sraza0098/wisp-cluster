@@ -8,7 +8,7 @@ resources:
 
 helmCharts:
   - name: nginx-ingress
-    repo: oci://ghcr.io/nginx/charts
+    repo: https://helm.nginx.com/stable
     version: 2.3.0
     releaseName: nginx-ingress
     namespace: ingress-nginx
@@ -19,6 +19,7 @@ helmCharts:
           enabled: true
           default: false
           controllerValue: nginx.org/ingress-controller
+
 
 
 
