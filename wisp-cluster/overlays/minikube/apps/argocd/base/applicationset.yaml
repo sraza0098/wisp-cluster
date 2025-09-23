@@ -22,16 +22,15 @@ spec:
         path: '{{app.source.path}}'
         helm:
           valueFiles:
-            {{- if app.source.helm.valueFiles }}
-            {{- range $f := app.source.helm.valueFiles }}
-            - '{{ $f }}'
-            {{- end }}
-            {{- end }}
-          values: |
-            {{ app.source.helm.values | default "" }}
+            - '{{app.source.helm.valueFiles}}'
+          values: '{{app.source.helm.values}}'
       destination:
         server: https://kubernetes.default.svc
         namespace: '{{app.namespace}}'
       syncPolicy:
-        automated: { prune: true, selfHeal: true }
-        syncOptions: [ CreateNamespace=true, ServerSideApply=true ]
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+          - ServerSideApply=true
