@@ -5,6 +5,8 @@ namespace: ingress-nginx
 
 resources:
   - namespace.yaml
+  - https://raw.githubusercontent.com/nginxinc/kubernetes-ingress/v3.5.2/deploy/crds.yaml
+
 
 helmCharts:
   - name: nginx-ingress
