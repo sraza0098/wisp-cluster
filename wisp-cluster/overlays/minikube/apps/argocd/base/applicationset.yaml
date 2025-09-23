@@ -6,31 +6,23 @@ metadata:
 spec:
   generators:
     - git:
-        repoURL: https://github.com/sraza0098/wisp-gitops
+        repoURL: https://github.com/sraza0098/wisp-cluster.git
         revision: main
-        files:
-          - path: apps/*/envs/dev/app.yaml
+        directories:
+          - path: wisp-cluster/overlays/minikube/apps/*/envs/dev
   template:
     metadata:
-      name: '{{app.name}}-{{app.environment}}'
+      name: '{{ regexFind "apps/([^/]+)/envs/[^/]+" .path | trimPrefix "apps/" | trimSuffix "/envs/dev" }}-dev'
       namespace: argocd
     spec:
       project: default
       source:
-        repoURL: '{{app.source.repoURL}}'
-        targetRevision: '{{app.source.targetRevision}}'
-        path: '{{app.source.path}}'
-        helm:
-          valueFiles:
-            - '{{app.source.helm.valueFiles}}'
-          values: '{{app.source.helm.values}}'
+        repoURL: https://github.com/sraza0098/wisp-cluster.git
+        targetRevision: main
+        path: '{{ .path }}'
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{app.namespace}}'
+        namespace: '{{ regexFind "apps/([^/]+)/envs/[^/]+" .path | trimPrefix "apps/" | trimSuffix "/envs/dev" }}'
       syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
-        syncOptions:
-          - CreateNamespace=true
-          - ServerSideApply=true
+        automated: { prune: true, selfHeal: true }
+        syncOptions: [ CreateNamespace=true, ServerSideApply=true ]
