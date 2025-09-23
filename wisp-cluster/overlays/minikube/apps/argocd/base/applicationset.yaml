@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: wisp-apps
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/sraza0098/wisp-gitops
+        revision: main
+        files:
+          - path: apps/*/envs/dev/app.yaml
+  template:
+    metadata:
+      name: '{{app.name}}-{{app.environment}}'
+      namespace: argocd
+    spec:
+      project: default
+      source:
+        repoURL: '{{app.source.repoURL}}'
+        targetRevision: '{{app.source.targetRevision}}'
+        path: '{{app.source.path}}'
+        helm:
+          valueFiles:
+            {{- if app.source.helm.valueFiles }}
+            {{- range $f := app.source.helm.valueFiles }}
+            - '{{ $f }}'
+            {{- end }}
+            {{- end }}
+          values: |
+            {{ app.source.helm.values | default "" }}
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{app.namespace}}'
+      syncPolicy:
+        automated: { prune: true, selfHeal: true }
+        syncOptions: [ CreateNamespace=true, ServerSideApply=true ]
