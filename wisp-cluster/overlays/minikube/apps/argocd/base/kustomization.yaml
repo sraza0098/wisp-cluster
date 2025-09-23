@@ -6,6 +6,7 @@ namespace: argocd
 resources:
   - namespace.yaml
   - https://raw.githubusercontent.com/argoproj/argo-cd/v2.7.2/manifests/install.yaml
+  - project-default.yaml
   - applicationset.yaml
 
 patches:

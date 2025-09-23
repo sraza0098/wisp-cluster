@@ -4,15 +4,18 @@ metadata:
   name: wisp-apps
   namespace: argocd
 spec:
+  goTemplate: true
   generators:
     - git:
-        repoURL: https://github.com/sraza0098/wisp-cluster.git
+        repoURL: https://github.com/sraza0098/wisp-cluster.git   # this repo
         revision: main
         directories:
           - path: wisp-cluster/overlays/minikube/apps/*/envs/dev
   template:
     metadata:
-      name: '{{ regexFind "apps/([^/]+)/envs/[^/]+" .path | trimPrefix "apps/" | trimSuffix "/envs/dev" }}-dev'
+      # path = wisp-cluster/overlays/minikube/apps/<app>/envs/dev
+      # splitList '/' and pick index 4 => <app>
+      name: '{{ index (splitList "/" .path) 4 }}-dev'
       namespace: argocd
     spec:
       project: default
@@ -22,7 +25,11 @@ spec:
         path: '{{ .path }}'
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{ regexFind "apps/([^/]+)/envs/[^/]+" .path | trimPrefix "apps/" | trimSuffix "/envs/dev" }}'
+        namespace: '{{ index (splitList "/" .path) 4 }}'
       syncPolicy:
-        automated: { prune: true, selfHeal: true }
-        syncOptions: [ CreateNamespace=true, ServerSideApply=true ]
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+          - ServerSideApply=true
