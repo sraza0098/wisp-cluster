@@ -15,7 +15,7 @@ helmCharts:
     valuesInline:
       crds:
         enabled: true
-      startupAPICheck:
+      startupapicheck:
         enabled: false
       global:
         leaderElection:
