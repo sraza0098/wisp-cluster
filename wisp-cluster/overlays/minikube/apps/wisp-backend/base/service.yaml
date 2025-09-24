@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Service
+metadata: { name: wisp-backend, namespace: wisp-backend }
+spec:
+  selector: { app: wisp-backend }
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8080
