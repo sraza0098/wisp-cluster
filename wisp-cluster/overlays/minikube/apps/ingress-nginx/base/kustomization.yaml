@@ -16,11 +16,13 @@ helmCharts:
     namespace: ingress-nginx
     valuesInline:
       controller:
-        ingressClassResource:
+        ingressClass:
           name: f5-nginx
-          enabled: true
-          default: false
-          controllerValue: nginx.org/ingress-controller
+          create: true
+          setAsDefaultIngress: false
+        service:
+          type: NodePort
+
 
 
 
