@@ -8,10 +8,10 @@ metadata:
 spec:
   ingressClassName: f5-nginx          # or: ingress-nginx (community controller)
   tls:
-    - hosts: [ "api.MINIKUBE_IP.nip.io" ]   # replace at commit time
+    - hosts: [ "api.192.168.49.2.nip.io" ]   # replace at commit time
       secretName: backend-tls
   rules:
-    - host: "api.MINIKUBE_IP.nip.io"        # replace
+    - host: "api.192.168.49.2.nip.io"        # replace
       http:
         paths:
           - path: /
