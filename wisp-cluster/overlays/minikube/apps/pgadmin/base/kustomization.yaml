@@ -13,7 +13,7 @@ helmCharts:
     namespace: pgadmin
     valuesInline:
       env:
-        email: "admin@dev.local"
+        email: "admin@example.com"
         password: "admin1234"
       serverDefinitions:
         enabled: true
