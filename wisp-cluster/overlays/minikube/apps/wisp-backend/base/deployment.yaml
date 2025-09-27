@@ -19,6 +19,9 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
+          env:
+            - name: JWT_SECRET
+              value: dev-secret-please-change   # dev only; move to Secret later
           envFrom:
             - secretRef:
                 name: wisp-backend-db
