@@ -20,5 +20,14 @@ helmCharts:
             password: wisp123
             database: wispdb
       primary:
-        persistence:
-          enabled: false   # dev only
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+      metrics:
+        enabled: true
+
+
