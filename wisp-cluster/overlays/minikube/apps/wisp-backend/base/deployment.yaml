@@ -19,17 +19,9 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
-          env:
-            - name: DB_HOST
-              value: postgres-postgresql.postgres.svc.cluster.local
-            - name: DB_PORT
-              value: "5432"
-            - name: DB_USER
-              value: wisp
-            - name: DB_PASSWORD
-              value: wisp123
-            - name: DB_NAME
-              value: wispdb
+          envFrom:
+            - secretRef:
+                name: wisp-backend-db
           readinessProbe:
             httpGet:
               path: /health
