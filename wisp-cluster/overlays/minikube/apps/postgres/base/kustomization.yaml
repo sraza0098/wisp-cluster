@@ -9,7 +9,7 @@ resources:
 helmCharts:
   - name: postgresql
     repo: https://charts.bitnami.com/bitnami
-    version: 16.7.27
+    version: 15.5.6
     releaseName: postgres
     namespace: postgres
     valuesInline:
