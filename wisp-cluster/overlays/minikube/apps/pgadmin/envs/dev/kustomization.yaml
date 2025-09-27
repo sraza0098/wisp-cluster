@@ -15,7 +15,7 @@ replacements:
       - select:
           kind: Ingress
         fieldPaths:
-          - spec.tls.[name=pgadmin-tls].hosts.0
+          - spec.tls.0.hosts.0
           - spec.rules.0.host
 
 configMapGenerator:
