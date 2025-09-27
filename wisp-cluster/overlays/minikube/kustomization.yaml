@@ -4,3 +4,5 @@ resources:
   - apps/argocd/envs/dev
   - apps/cert-manager/envs/dev
   - apps/ingress-nginx/envs/dev
+  - apps/certs-issuer/envs/dev
+  - apps/wisp-backend/envs/dev
