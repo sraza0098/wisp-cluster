@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: ghcr.io/sraza0098/wisp-backend:0.1.0
+          image: ghcr.io/sraza0098/wisp-backend:0.1.1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
