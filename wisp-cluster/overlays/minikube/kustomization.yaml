@@ -6,3 +6,4 @@ resources:
   - apps/ingress-nginx/envs/dev
   - apps/certs-issuer/envs/dev
   - apps/wisp-backend/envs/dev
+  - apps/postgres/envs/dev
