@@ -21,7 +21,7 @@ helmCharts:
           create: true
           setAsDefaultIngress: false
         service:
-          type: NodePort
+          type: LoadBalancer
 
 
 
