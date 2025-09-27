@@ -1,0 +1,26 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: pgadmin
+resources:
+  - ../../base
+
+# quick string replacement for host in dev
+replacements:
+  - source:
+      kind: ConfigMap
+      name: pgadmin-dev-host
+      fieldPath: data.host
+    targets:
+      - select:
+          kind: Ingress
+        fieldPaths:
+          - spec.tls.[name=pgadmin-tls].hosts.0
+          - spec.rules.0.host
+
+configMapGenerator:
+  - name: pgadmin-dev-host
+    literals:
+      - host=pgadmin.192.168.49.2.nip.io
+generatorOptions:
+  disableNameSuffixHash: true

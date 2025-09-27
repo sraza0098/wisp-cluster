@@ -1,0 +1,46 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: pgadmin
+resources:
+  - namespace.yaml
+
+helmCharts:
+  - name: pgadmin4
+    repo: https://helm.runix.net
+    version: 1.50.0
+    releaseName: pgadmin
+    namespace: pgadmin
+    valuesInline:
+      env:
+        # Dev-only; move to Secret for real envs
+        email: "admin@dev.local"
+        password: "admin1234"
+      # Preload a server that points at your in-cluster Postgres
+      serverDefinitions:
+        enabled: true
+        servers:
+          "Wisp-Postgres":
+            Name: "Wisp-Postgres"
+            Group: "Wisp"
+            Host: "postgres-postgresql.postgres.svc.cluster.local"
+            Port: 5432
+            MaintenanceDB: "wispdb"
+            Username: "wisp"
+            SSLMode: "prefer"
+      service:
+        type: ClusterIP
+      ingress:
+        enabled: true
+        ingressClassName: f5-nginx
+        annotations:
+          cert-manager.io/cluster-issuer: selfsigned-cluster-issuer
+        hosts:
+          - host: pgadmin.192.168.49.2.nip.io   # replace in dev overlay
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - pgadmin.192.168.49.2.nip.io
+            secretName: pgadmin-tls

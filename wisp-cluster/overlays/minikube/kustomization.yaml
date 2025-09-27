@@ -7,3 +7,4 @@ resources:
   - apps/certs-issuer/envs/dev
   - apps/wisp-backend/envs/dev
   - apps/postgres/envs/dev
+  - apps/pgadmin/envs/dev
