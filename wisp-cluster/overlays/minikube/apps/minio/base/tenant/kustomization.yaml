@@ -27,7 +27,7 @@ helmCharts:
         exposeServices:
           minio: true
           console: true
-
+        requestAutoCert: true
         # ↓ use ONLY this; do NOT set 'configuration:'
         configSecret:
           name: wisp-minio-root-creds

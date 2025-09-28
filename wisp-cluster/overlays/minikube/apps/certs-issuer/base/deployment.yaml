@@ -4,3 +4,12 @@ metadata:
   name: selfsigned-cluster-issuer
 spec:
   selfSigned: {}
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: selfsigned
+  namespace: minio
+spec:
+  selfSigned: {}
+
