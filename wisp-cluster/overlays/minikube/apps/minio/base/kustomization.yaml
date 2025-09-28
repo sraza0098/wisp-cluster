@@ -9,5 +9,5 @@ helmCharts:
     repo: https://operator.min.io/
     version: 7.1.1          # pin to the version you saw
     releaseName: minio-operator
-    namespace: minio-operator
+    namespace: minio
     includeCRDs: true
