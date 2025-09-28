@@ -6,7 +6,7 @@ commonAnnotations:
 
 resources:
   - secret-root-creds.yaml
-  - secret-config.yaml
+  # - secret-config.yaml
 
 helmCharts:
   - name: tenant
@@ -19,21 +19,20 @@ helmCharts:
       tenant:
         name: wisp
         pools:
-          - name: pool-0            # <-- REQUIRED
+          - name: pool-0
             servers: 1
             volumesPerServer: 1
             size: 10Gi
-            storageClassName: standard   # adjust to your cluster
+            storageClassName: standard
         exposeServices:
           minio: true
           console: true
-        configuration:
-          name: wisp-minio-env
+
+        # Use ONLY configSecret. Do not set 'configuration:'.
         configSecret:
-          name: wisp-minio-env
-          existingSecret: true
-        credsSecret:
           name: wisp-minio-root-creds
+          existingSecret: true
+
       buckets:
         - name: wisp-media
 
