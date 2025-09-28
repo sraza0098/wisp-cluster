@@ -17,16 +17,18 @@ helmCharts:
         password: "admin1234"
       serverDefinitions:
         enabled: true
-        # MUST be a multiline string with JSON fragment of servers
+        useStringData: true
         servers: |-
-          "1": {
-            "Name": "Wisp-Postgres",
-            "Group": "Wisp",
-            "Host": "postgres-postgresql.postgres.svc.cluster.local",
-            "Port": 5432,
-            "MaintenanceDB": "wispdb",
-            "Username": "wisp",
-            "SSLMode": "prefer"
+          {
+            "1": {
+              "Name": "Wisp-Postgres",
+              "Group": "Wisp",
+              "Host": "postgres-postgresql.postgres.svc.cluster.local",
+              "Port": 5432,
+              "MaintenanceDB": "wispdb",
+              "Username": "wisp",
+              "SSLMode": "prefer"
+            }
           }
       service:
         type: ClusterIP
