@@ -9,3 +9,4 @@ resources:
   - apps/postgres/envs/dev
   - apps/pgadmin/envs/dev
   - apps/redis/envs/dev
+  - apps/minio/envs/dev
