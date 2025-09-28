@@ -28,11 +28,12 @@ helmCharts:
           minio: true
           console: true
 
-        # Use ONLY configSecret. Do not set 'configuration:'.
+        # ↓ use ONLY this; do NOT set 'configuration:'
         configSecret:
           name: wisp-minio-root-creds
           existingSecret: true
 
       buckets:
         - name: wisp-media
+
 
