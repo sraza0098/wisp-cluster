@@ -22,6 +22,14 @@ spec:
           env:
             - name: JWT_SECRET
               value: dev-secret-please-change   # dev only; move to Secret later
+            - name: REDIS_ADDR
+              value: redis-master.redis.svc.cluster.local:6379
+            - name: REDIS_PASSWORD
+              value: ""   # empty because auth.disabled in dev
+            - name: PRESENCE_TTL_SECONDS
+              value: "60" # how long a user is considered “online” without heartbeat
+            - name: PRESENCE_TICK_SECONDS
+              value: "20" # heartbeat interval while WS is connected
           envFrom:
             - secretRef:
                 name: wisp-backend-db
