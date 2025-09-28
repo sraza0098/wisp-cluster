@@ -19,25 +19,21 @@ helmCharts:
       tenant:
         name: wisp
         pools:
-          - servers: 1
+          - name: pool-0            # <-- REQUIRED
+            servers: 1
             volumesPerServer: 1
             size: 10Gi
-            storageClassName: standard   # adjust for your cluster
+            storageClassName: standard   # adjust to your cluster
         exposeServices:
           minio: true
           console: true
-
-        # REQUIRED by operator & chart — point BOTH to the same Secret you create
         configuration:
           name: wisp-minio-env
         configSecret:
           name: wisp-minio-env
           existingSecret: true
-
-        # Root credentials secret (separate, simple key/value format)
         credsSecret:
           name: wisp-minio-root-creds
-
-      # Optional: create buckets at bootstrap
       buckets:
         - name: wisp-media
+
