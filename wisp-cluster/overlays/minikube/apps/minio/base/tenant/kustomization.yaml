@@ -3,7 +3,6 @@ kind: Kustomization
 
 secretGenerator:
   - name: wisp-minio-root-creds
-    namespace: minio
     literals:
       - accesskey=minioadmin
       - secretkey=minioadmin123
