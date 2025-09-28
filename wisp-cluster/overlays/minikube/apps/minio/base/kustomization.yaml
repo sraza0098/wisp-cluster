@@ -5,17 +5,9 @@ resources:
   - namespace.yaml
 
 helmCharts:
-  - name: minio
-    repo: https://charts.bitnami.com/bitnami
-    version: 17.0.21
-    releaseName: minio
-    namespace: minio
-    valuesInline:
-      mode: standalone
-      disableWebUI: false
-      auth:
-        rootUser: minioadmin
-        rootPassword: minioadmin123
-      defaultBuckets: wisp-media
-      service:
-        type: ClusterIP
+  - name: operator
+    repo: https://operator.min.io/
+    version: 7.1.1          # pin to the version you saw
+    releaseName: minio-operator
+    namespace: minio-operator
+    includeCRDs: true
