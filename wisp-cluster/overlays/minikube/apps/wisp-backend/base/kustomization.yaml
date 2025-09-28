@@ -7,3 +7,26 @@ resources:
   - service.yaml
   - ingress.yaml
   - secret-db.yaml
+
+# Create the S3 creds secret *in this namespace* for the backend to use
+secretGenerator:
+  - name: wisp-minio-creds
+    literals:
+      # Use the same creds you put in minio’s tenant for dev
+      - AWS_ACCESS_KEY_ID=minioadmin
+      - AWS_SECRET_ACCESS_KEY=minioadmin123
+
+      # Set these to your tenant’s Service DNS & bucket
+      # VERIFY the Service name with: kubectl -n minio get svc
+      # Common names created by the Operator are either:
+      #   wisp-hl:9000    or   wisp-minio-hl:9000
+      - S3_ENDPOINT=http://wisp-hl.minio.svc.cluster.local:9000
+      # fallback if your operator names it with "minio" in the service:
+      # - S3_ENDPOINT=http://wisp-minio-hl.minio.svc.cluster.local:9000
+
+      - S3_BUCKET=wisp-media
+      - S3_REGION=us-east-1
+      - S3_USE_SSL=false
+
+generatorOptions:
+  disableNameSuffixHash: true

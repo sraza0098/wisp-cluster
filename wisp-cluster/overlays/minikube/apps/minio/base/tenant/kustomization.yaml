@@ -6,7 +6,6 @@ commonAnnotations:
 
 resources:
   - secret-root-creds.yaml
-  # - secret-config.yaml
 
 helmCharts:
   - name: tenant

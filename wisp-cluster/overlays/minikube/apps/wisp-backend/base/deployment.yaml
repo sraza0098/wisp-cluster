@@ -49,6 +49,8 @@ spec:
           envFrom:
             - secretRef:
                 name: wisp-backend-db
+            - secretRef:
+                name: wisp-minio-creds
           readinessProbe:
             httpGet:
               path: /health
