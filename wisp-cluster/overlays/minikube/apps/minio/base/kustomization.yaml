@@ -3,11 +3,5 @@ kind: Kustomization
 
 resources:
   - namespace.yaml
-
-helmCharts:
-  - name: operator
-    repo: https://operator.min.io/
-    version: 7.1.1          # pin to the version you saw
-    releaseName: minio-operator
-    namespace: minio
-    includeCRDs: true
+  - operator/
+  - tenant/

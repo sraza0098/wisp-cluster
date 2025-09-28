@@ -37,9 +37,15 @@ spec:
             - name: S3_BUCKET
               value: wisp-media
             - name: S3_ACCESS_KEY
-              valueFrom: { secretKeyRef: { name: wisp-minio-creds, key: accesskey, optional: true } }
+              valueFrom:
+                secretKeyRef:
+                  name: wisp-minio-creds
+                  key: accesskey      # verify with: kubectl -n minio-tenant get secret wisp-minio-creds -o yaml
             - name: S3_SECRET_KEY
-              valueFrom: { secretKeyRef: { name: wisp-minio-creds, key: secretkey, optional: true } }
+              valueFrom:
+                secretKeyRef:
+                  name: wisp-minio-creds
+                  key: secretkey
           envFrom:
             - secretRef:
                 name: wisp-backend-db

@@ -1,0 +1,43 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+commonAnnotations:
+  argocd.argoproj.io/sync-wave: "2"   # apply after the Operator
+
+resources:
+  - secret-root-creds.yaml
+  - secret-config.yaml
+
+helmCharts:
+  - name: tenant
+    repo: https://operator.min.io
+    version: 7.1.1
+    releaseName: wisp-tenant
+    namespace: minio
+    includeCRDs: false
+    valuesInline:
+      tenant:
+        name: wisp
+        pools:
+          - servers: 1
+            volumesPerServer: 1
+            size: 10Gi
+            storageClassName: standard   # adjust for your cluster
+        exposeServices:
+          minio: true
+          console: true
+
+        # REQUIRED by operator & chart — point BOTH to the same Secret you create
+        configuration:
+          name: wisp-minio-env
+        configSecret:
+          name: wisp-minio-env
+          existingSecret: true
+
+        # Root credentials secret (separate, simple key/value format)
+        credsSecret:
+          name: wisp-minio-root-creds
+
+      # Optional: create buckets at bootstrap
+      buckets:
+        - name: wisp-media
