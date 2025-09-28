@@ -1,6 +1,18 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
+secretGenerator:
+  - name: wisp-minio-creds
+    namespace: minio-tenant
+    literals:
+      - accesskey=minioadmin
+      - secretkey=minioadmin123
+
+generatorOptions:
+  disableNameSuffixHash: true
+  annotations:
+    argocd.argoproj.io/sync-wave: "1.9"
+    
 commonAnnotations:
   argocd.argoproj.io/sync-wave: "2"   # apply after the Operator
 
