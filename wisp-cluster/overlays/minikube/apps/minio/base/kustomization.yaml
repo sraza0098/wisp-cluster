@@ -7,7 +7,7 @@ resources:
 helmCharts:
   - name: minio
     repo: https://charts.bitnami.com/bitnami
-    version: 17.0.19
+    version: 17.0.21
     releaseName: minio
     namespace: minio
     valuesInline:
